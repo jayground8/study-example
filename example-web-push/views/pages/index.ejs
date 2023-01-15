@@ -1,0 +1,47 @@
+<html>
+    <title>Firebase Messaging Demo</title>
+    <style>
+        div {
+            margin-bottom: 15px;
+        }
+    </style>
+    <body>
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+            import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-messaging.js";
+
+            const firebaseConfig = {
+              apiKey: "<%= apiKey %>",
+              authDomain: "<%= authDomain %>",
+              projectId: "<%= projectId %>",
+              storageBucket: "<%= storageBucket %>",
+              messagingSenderId: "<%= messagingSenderId %>",
+              appId: "<%= appId %>",
+              measurementId: "<%= measurementId %>"
+            };
+            const app = initializeApp(firebaseConfig);
+            const messaging = getMessaging(app);
+
+            Notification.requestPermission()
+                .then((permission) => {
+                    console.log(permission)
+                    if (permission === 'granted') {
+                        console.log("Notification permission granted!")
+                        return getToken(messaging, { 
+                            vapidKey: "<%= vapidKey %>" 
+                        })
+                    }
+                })
+                .then((token) => {
+                    console.log('token', token)
+                })
+                .catch((err) => {
+                    console.error(err)
+                })
+
+            onMessage(messaging, (payload) => {
+                console.log('Message received. ', payload)
+            })
+        </script>
+    </body>
+</html>
