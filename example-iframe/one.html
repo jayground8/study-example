@@ -1,0 +1,16 @@
+<html>
+  <head></head>
+  <body>
+    one
+    <form action="/two" method="post">
+      <input type="text" name="one" value="one" />
+      <button id="submit">submit</button>
+    </form>
+    <script>
+      const btn = document.getElementById("submit");
+      btn.addEventListener("click", () => {
+        window.parent.postMessage("data from iframe");
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+<html>
+  <head></head>
+  <body>
+    example
+    <form action="/one" method="post" target="example">
+      <input type="text" name="index" value="index" />
+      <button>submit</button>
+    </form>
+    <iframe name="example" src="/landing"></iframe>
+    <script>
+      window.addEventListener("message", (e) => {
+        console.log(e.data);
+      })
+    </script>
+  </body>
+</html>
