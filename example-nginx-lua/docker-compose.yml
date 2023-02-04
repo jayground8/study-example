@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  web:
+    build:
+      context: .
+      target: production
+      dockerfile: web.Dockerfile
+    volumes:
+      - ./src:/src
+    command: npm run start
+    deploy:
+      resources:
+        limits:
+          cpus: '1.50'
+          memory: 2048M
+        reservations:
+          cpus: '1.25'
+          memory: 1524M
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    environment:
+      - LD_LIBRARY_PATH=/usr/local/lib

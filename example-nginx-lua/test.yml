@@ -1,0 +1,18 @@
+config:
+  target: "http://localhost"
+  phases:
+    - duration: 60
+      arrivalRate: 100
+      name: Warm up
+    - duration: 120
+      arrivalRate: 100
+      rampTo: 500
+      name: Ramp up load
+    - duration: 600
+      arrivalRate: 500
+      name: Sustained load
+scenarios:
+  - name: "Search and buy"
+    flow:
+      - get:
+          url: "/hello"
